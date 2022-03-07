@@ -1,0 +1,6 @@
+module Pods_engine_engineTests {
+  umbrella header "Pods-engine-engineTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
