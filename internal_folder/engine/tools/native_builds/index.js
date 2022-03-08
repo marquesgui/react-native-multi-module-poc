@@ -1,5 +1,5 @@
 const {IOSBuilder} = require('./modules/IOSBuilder');
-//const {AndroidBuilder} = require('./modules/AndroidBuilder');
+const {AndroidBuilder} = require('./modules/AndroidBuilder');
 const {Configurator} = require('./modules/Configurator');
 class NativeBuilds {
   constructor() {
@@ -19,11 +19,11 @@ class NativeBuilds {
     iOSBuilder.build(platform, buildType);
   }
 
-//  buildAndroid(buildType) {
+  buildAndroid(buildType) {
 //    this._configure();
-//    const androidBuilder = new AndroidBuilder();
-//    androidBuilder.build(buildType);
-//  }
+    const androidBuilder = new AndroidBuilder();
+    androidBuilder.build(buildType);
+  }
 }
 
 module.exports = {
