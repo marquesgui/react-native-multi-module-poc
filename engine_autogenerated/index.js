@@ -1,1 +1,1 @@
-require('../internal_folder/react-native-wix-engine/index')
+require('../internal_folder/engine/index')
