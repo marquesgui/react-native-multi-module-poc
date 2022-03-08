@@ -116,7 +116,7 @@ async function run(args) {
       packagerProcess = new AsyncPackagerRunner().run(
         engineDir,
         args.reset_cache,
-        args.packager_port,
+        arsg.packager_port,
       );
     }
 
@@ -149,7 +149,12 @@ async function run(args) {
     ]);
   } catch (ex) {
     Logger.error(ex);
-    packagerProcess.kill();
+    console.log(ex)
+
+    if(packagerProcess) {
+      packagerProcess.kill();
+    }
+
     process.exit(1);
   }
 }

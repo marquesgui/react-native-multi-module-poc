@@ -8,7 +8,7 @@ const retry = require('../utils/retry');
 const asyncExec = promisify(childProcess.exec);
 
 const BundleIds = {
-  dev: 'com.wix.engine.dev',
+  dev: 'com.engine.dev',
   release: 'TBD',
 };
 

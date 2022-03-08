@@ -31,7 +31,7 @@ class IOSBuilder {
       -sdk ${platform.name} \
       -archivePath '${archivePath}' \
       -derivedDataPath ${this._engineIosDir}/DerivedData/engine \
-      -UseModernBuildSystem=yes \
+      -UseModernBuildSystem=YES \
       ${platform.buildCmd} -quiet
     `;
 

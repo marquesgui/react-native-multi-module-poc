@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build-ios": "node internal_folder/engine/scripts/build_scripts/build_ios"
+    "build-ios": "node internal_folder/engine/scripts/build_scripts/build_ios",
+    "ios": "internal_folder/engine/bin/engine -i"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^5.11.11",
@@ -28,5 +29,8 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "engineConfig": {
+    "modules": []
   }
 }
