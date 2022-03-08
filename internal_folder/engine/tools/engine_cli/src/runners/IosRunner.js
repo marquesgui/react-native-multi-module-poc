@@ -8,7 +8,7 @@ const retry = require('../utils/retry');
 const asyncExec = promisify(childProcess.exec);
 
 const BundleIds = {
-  dev: 'com.engine.dev',
+  dev: 'com.poc.engine.dev',
   release: 'TBD',
 };
 
@@ -105,7 +105,7 @@ class IosRunner {
   async _launchApp(deviceUdid, bundleId) {
     Logger.info(`Launching app ${bundleId} on device ${deviceUdid}.` +
                 ` You can watch the device logs by running:\n` +
-                `xcrun simctl spawn ${deviceUdid} log stream --level debug --style compact --predicate 'process=="engine" && subsystem=="com.facebook.react.log"'`);
+                `xcrun simctl spawn ${deviceUdid} log stream --level debug --style compact --predicate 'process=="ReactNativeWixEngine" && subsystem=="com.facebook.react.log"'`);
     await asyncExec(`xcrun simctl launch ${deviceUdid} ${bundleId}`);
   }
 }
