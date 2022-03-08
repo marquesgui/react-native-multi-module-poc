@@ -116,7 +116,7 @@ async function run(args) {
       packagerProcess = new AsyncPackagerRunner().run(
         engineDir,
         args.reset_cache,
-        arsg.packager_port,
+        args.packager_port,
       );
     }
 

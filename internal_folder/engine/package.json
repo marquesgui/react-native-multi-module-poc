@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build-ios": "node internal_folder/engine/scripts/build_scripts/build_ios",
-    "ios": "internal_folder/engine/bin/engine -iP"
+    "ios": "internal_folder/engine/bin/engine -i"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^5.11.11",
