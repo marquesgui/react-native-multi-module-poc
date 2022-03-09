@@ -11,6 +11,7 @@ class AndroidBuilder {
   build(buildType) {
     const {config} = AndroidBuildVariant[buildType];
     const _i = os.platform() === 'darwin' ? `-i ''` : `-i`;
+    console.log(`Platform: ${os.platform()}`);
     execSync(`sed ${_i} -e 's@"node_modules/react-native/local-cli/cli.js"@"../../node_modules/react-native/local-cli/cli.js"@' ${__dirname}/../../../../../node_modules/react-native/react.gradle`);
 
     execSync(`internal_folder/engine/android/gradlew \
