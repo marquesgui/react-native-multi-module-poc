@@ -23,7 +23,7 @@ class AndroidBuilder {
     const destinationDir = `${this._repoDir}/internal_folder/engine/app_builds/android/${buildType}`;
     execSync(`rm -rf ${destinationDir} && mkdir -p ${destinationDir}`);
     const app = `${this._engineAndroidDir}/app/build/outputs/apk/${config}/app-${config}.apk`;
-    const destinationApp = `${destinationDir}/ReactNativeWixEngine.apk`;
+    const destinationApp = `${destinationDir}/engine.apk`;
     execSync(`cp -a ${app} ${destinationApp}`);
   }
 }

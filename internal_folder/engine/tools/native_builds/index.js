@@ -14,7 +14,7 @@ class NativeBuilds {
   }
 
   buildIOS(platform, buildType) {
-//    this._configure();
+    this._configure();
     const iOSBuilder = new IOSBuilder();
     iOSBuilder.build(platform, buildType);
   }

@@ -7,7 +7,7 @@ const fs = require('fs');
 const asyncExec = promisify(childProcess.exec);
 
 const PackageId = {
-  dev: 'com.reactnativewixengine',
+  dev: 'com.engine',
   release: 'TBD',
 };
 
