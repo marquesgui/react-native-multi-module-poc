@@ -1,6 +1,6 @@
 const childProcess = require('child_process');
-const {Logger} = require('../utils/Logger');
-const {promisify} = require('util');
+const { Logger } = require('../utils/Logger');
+const { promisify } = require('util');
 const _ = require('lodash');
 const fs = require('fs');
 
@@ -46,22 +46,14 @@ class AndroidRunner {
   }
 
   _getBootedDevices() {
-    const output = childProcess.execSync(
-      `${this._adb} devices | tail -n +2 | cut -sf 1`,
-    );
-    return String(output)
-      .trim()
-      .split('\n');
+    const output = childProcess.execSync(`${this._adb} devices | tail -n +2 | cut -sf 1`);
+    return String(output).trim().split('\n');
   }
 
   async _uninstallApp(device, packageId) {
-    const packagesCmdResult = await asyncExec(
-      `${this._adb} -s ${device} shell pm list packages`,
-    );
+    const packagesCmdResult = await asyncExec(`${this._adb} -s ${device} shell pm list packages`);
     if (!packagesCmdResult.stdout.match(new RegExp(`:${packageId}\\n`))) {
-      Logger.info(
-        `The package ${packageId} is not installed, skipping uninstallation`,
-      );
+      Logger.info(`The package ${packageId} is not installed, skipping uninstallation`);
       return;
     }
 
@@ -70,17 +62,13 @@ class AndroidRunner {
   }
 
   _buildApp(buildType) {
-    const {NativeBuilds} = require('../../../native_builds/index');
+    const { NativeBuilds } = require('../../../native_builds/index');
     NativeBuilds.buildAndroid(buildType);
   }
   _buildAppIfNotExist(engineDir, buildType) {
     const appPath = `${engineDir}/app_builds/android/${buildType}/engine.apk`;
     if (!fs.existsSync(appPath)) {
-      Logger.info(
-        `Binary of ${Logger.colorQuote(
-          buildType,
-        )} is not available at ${Logger.colorQuote(appPath)}, Building it.....`,
-      );
+      Logger.info(`Binary of ${Logger.colorQuote(buildType)} is not available at ${Logger.colorQuote(appPath)}, Building it.....`);
       this._buildApp(buildType);
     }
     return appPath;
@@ -94,21 +82,13 @@ class AndroidRunner {
 
   async _permitOverlay(device, packageId) {
     Logger.info(`Granting permissions for overlay on the device ${device}`);
-    await asyncExec(
-      `${
-        this._adb
-      } -s ${device} shell pm grant ${packageId} android.permission.SYSTEM_ALERT_WINDOW`,
-    );
+    await asyncExec(`${this._adb} -s ${device} shell pm grant ${packageId} android.permission.SYSTEM_ALERT_WINDOW`);
   }
 
   async _launchApp(device, packageId) {
     Logger.info(`Launching app ${packageId} on device ${device}`);
-    await asyncExec(
-      `${
-        this._adb
-      } -s ${device} shell monkey -p ${packageId} -c android.intent.category.LAUNCHER 1`,
-    );
+    await asyncExec(`${this._adb} -s ${device} shell monkey -p ${packageId} -c android.intent.category.LAUNCHER 1`);
   }
 }
 
-module.exports = {AndroidRunner};
+module.exports = { AndroidRunner };
