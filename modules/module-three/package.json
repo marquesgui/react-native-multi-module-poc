@@ -1,0 +1,22 @@
+{
+  "name": "module-three",
+  "version": "0.0.2",
+  "description": "",
+  "main": "./src/module.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wix-incubator/react-native-wix-engine-playground.git"
+  },
+  "scripts": {
+    "run-fake-server": "json-server --watch db.json",
+    "android": "rn-engine -p engineConfig.json -a",
+    "ios": "rn-engine -p engineConfig.json -i"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "engine": "file://../react-native-multi-module-poc/internal_folder/engine/engine-0.0.1.tgz"
+  },
+  "peerDependencies": {
+    "engine": "*"
+  }
+}

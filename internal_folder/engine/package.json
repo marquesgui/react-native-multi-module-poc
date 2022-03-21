@@ -1,6 +1,6 @@
 {
   "name": "engine",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "private": true,
   "scripts": {
     "build-ios": "node internal_folder/engine/scripts/build_scripts/build_ios",

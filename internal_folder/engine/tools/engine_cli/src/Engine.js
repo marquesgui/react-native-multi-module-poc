@@ -1,21 +1,19 @@
-const {ArgumentParser} = require('argparse');
-const {AsyncPackagerRunner} = require('./runners/AsyncPackagerRunner');
-const {IosRunner} = require('./runners/IosRunner');
-const {AndroidRunner} = require('./runners/AndroidRunner');
-const {Logger} = require('./utils/Logger');
-const {PackagerWatcher} = require('./runners/PackagerWatcher');
-const {RNCLIConfigValidator} = require('./runners/RNCLIConfigValidator');
-const {GenerateConfiguration} = require('./GenerateConfiguration');
+const { ArgumentParser } = require('argparse');
+const { AsyncPackagerRunner } = require('./runners/AsyncPackagerRunner');
+const { IosRunner } = require('./runners/IosRunner');
+const { AndroidRunner } = require('./runners/AndroidRunner');
+const { Logger } = require('./utils/Logger');
+const { PackagerWatcher } = require('./runners/PackagerWatcher');
+const { RNCLIConfigValidator } = require('./runners/RNCLIConfigValidator');
+const { GenerateConfiguration } = require('./GenerateConfiguration');
 const BuildType = require('../../native_builds/BuildType');
-const {simulator} = require('../../native_builds/BuildPlatforms');
+const { simulator } = require('../../native_builds/BuildPlatforms');
 
 function parseArgs() {
   const parser = new ArgumentParser();
 
   parser.addArgument(['-i', '--run-ios'], {
-    help:
-      'uninstall, install, and run the app on iOS simulators; ' +
-      "unless '--ios-devices' option is used, all open iOS simulators will be used",
+    help: 'uninstall, install, and run the app on iOS simulators; ' + "unless '--ios-devices' option is used, all open iOS simulators will be used",
     action: 'storeTrue',
   });
 
@@ -25,9 +23,7 @@ function parseArgs() {
   });
 
   parser.addArgument(['-U', '--disable-uninstall'], {
-    help:
-      'when used with -i or -a, this option prevents uninstallation of the app from the device; ' +
-      'this means that you will get the old session',
+    help: 'when used with -i or -a, this option prevents uninstallation of the app from the device; ' + 'this means that you will get the old session',
     action: 'storeTrue',
   });
 
@@ -38,8 +34,7 @@ function parseArgs() {
   });
 
   parser.addArgument(['-p', '--custom-config-json'], {
-    help:
-      'path to configuration json (the default is package.json in the current dir)',
+    help: 'path to configuration json (the default is package.json in the current dir)',
   });
 
   parser.addArgument(['--ios-devices'], {
@@ -76,7 +71,7 @@ function parseArgs() {
     action: 'storeTrue',
   });
 
-  parser.addArgument('ignored', {isPositional: true, nargs: '*'});
+  parser.addArgument('ignored', { isPositional: true, nargs: '*' });
   return parser.parseArgs();
 }
 
@@ -89,69 +84,46 @@ async function run(args) {
 
     new GenerateConfiguration().run({
       root_path: `${engineDir}/../..`,
-      package_json_path:
-        args.custom_config_json || `${process.cwd()}/package.json`,
+      package_json_path: args.custom_config_json || `${process.cwd()}/package.json`,
       watch: false,
       force_localhost: args.force_localhost,
     });
 
-    const packagerWatcher = new PackagerWatcher(
-      args.packager_port,
-      args.no_packager,
-    );
+    const packagerWatcher = new PackagerWatcher(args.packager_port, args.no_packager);
 
     if (!(await packagerWatcher.validateDown())) {
       Logger.error(
         "Detected packager running, can't run another one. " +
           'If you intentionally started it separately, use the -P option. ' +
-          `To run the running packager process, use 'lsof -i :${
-            args.packager_port
-          }'.`,
+          `To run the running packager process, use 'lsof -i :${args.packager_port}'.`,
       );
       process.exit();
     }
     packagerWatcher.startWatchingUntilUp();
 
     if (!args.no_packager) {
-      packagerProcess = new AsyncPackagerRunner().run(
-        engineDir,
-        args.reset_cache,
-        args.packager_port,
-      );
+      packagerProcess = new AsyncPackagerRunner().run(engineDir, args.reset_cache, args.packager_port);
     }
 
     await Promise.all([
       (async () => {
         if (args.run_ios) {
-          const iosRunner = new IosRunner(
-            packagerWatcher,
-            args.ios_devices,
-            args.ios_udids,
-          );
-          await iosRunner.run(
-            engineDir,
-            args.native_build_type,
-            args.disable_uninstall,
-            simulator,
-          );
+          const iosRunner = new IosRunner(packagerWatcher, args.ios_devices, args.ios_udids);
+          await iosRunner.run(engineDir, args.native_build_type, args.disable_uninstall, simulator);
         }
       })(),
       (async () => {
         if (args.run_android) {
           const androidRunner = new AndroidRunner(packagerWatcher);
-          await androidRunner.run(
-            engineDir,
-            args.native_build_type,
-            args.disable_uninstall,
-          );
+          await androidRunner.run(engineDir, args.native_build_type, args.disable_uninstall);
         }
       })(),
     ]);
   } catch (ex) {
     Logger.error(ex);
-    console.log(ex)
+    console.log(ex);
 
-    if(packagerProcess) {
+    if (packagerProcess) {
       packagerProcess.kill();
     }
 
@@ -159,4 +131,4 @@ async function run(args) {
   }
 }
 
-module.exports = {run, parseArgs};
+module.exports = { run, parseArgs };
