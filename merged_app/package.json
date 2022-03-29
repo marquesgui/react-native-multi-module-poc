@@ -1,0 +1,24 @@
+{
+  "name": "my-app-example",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wix-incubator/react-native-wix-engine-playground.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wix-incubator/react-native-wix-engine-playground/issues"
+  },
+  "homepage": "https://github.com/wix-incubator/react-native-wix-engine-playground#readme",
+  "description": "",
+  "scripts": {
+    "android": "engine -p engineConfig.json -a",
+    "ios": "engine -p engineConfig.json -i"
+  },
+  "dependencies": {
+    "engine": "file:///home/tzenaro/projects/rd/assinatura/react-native-multi-module-poc/internal_folder/engine/engine-0.0.6.tgz",
+    "module-blog": "file:///home/tzenaro/projects/rd/assinatura/react-native-multi-module-poc/modules/module-blog/module-blog-0.0.1.tgz",
+    "module-settings": "file:///home/tzenaro/projects/rd/assinatura/react-native-multi-module-settings-poc/module-settings-0.0.1.tgz"
+  },
+  "devDependencies": {}
+}

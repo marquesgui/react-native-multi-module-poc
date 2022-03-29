@@ -63,3 +63,4 @@ internal_folder/engine/app_builds/
 
 *.bkp
 tmp
+*.tgz

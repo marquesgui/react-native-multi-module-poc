@@ -1,0 +1,8 @@
+{
+  "engineConfig": {
+    "modules": [
+      "module-settings",
+      "module-blog"
+    ]
+  }
+}
