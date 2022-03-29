@@ -94,6 +94,7 @@ export class ModuleManager {
           this.modules[moduleName] = new (moduleGenerators[moduleName]())();
         }
       } catch (e) {
+        console.error(e);
         throw new Error('Error constructing module ' + moduleName, e);
       }
     });

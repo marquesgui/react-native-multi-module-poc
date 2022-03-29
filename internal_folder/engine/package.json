@@ -13,18 +13,22 @@
     "engine": "./bin/engine"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
     "@react-navigation/stack": "^5.14.3",
     "lodash": "^4.17.21",
+    "observable-hooks": "^4.2.0",
     "prop-types": "^15.8.1",
     "react": "17.0.2",
     "react-autobind": "^1.0.6",
     "react-native": "0.64.3",
+    "react-native-gesture-handler": "^2.3.2",
+    "react-native-reanimated": "^2.5.0",
     "react-native-safe-area-context": "^4.2.1",
     "react-native-screens": "^3.13.1",
-    "react-native-ui-lib": "^6.11.2",
+    "rxjs": "^7.5.5",
     "typedi": "^0.10.0"
   },
   "devDependencies": {
