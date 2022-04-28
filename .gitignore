@@ -64,3 +64,5 @@ internal_folder/engine/app_builds/
 *.bkp
 tmp
 *.tgz
+.npmrc
+/internal_folder/engine/ios/engine/GoogleService-Info.plist
